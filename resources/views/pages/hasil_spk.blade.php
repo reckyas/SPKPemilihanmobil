@@ -1,5 +1,5 @@
 @extends('layout.main')
-@section('title', 'Hasil Pencarian')
+@section('title', 'Hasil Perbandingan')
 @section('content')
     <div class="container mx-auto max-w-6xl p-5">
         <div class="sm:flex">

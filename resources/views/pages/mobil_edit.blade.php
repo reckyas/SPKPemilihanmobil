@@ -122,8 +122,8 @@
                                         name="gambar" id="gambar" placeholder="Pilih gambar mobil">
                                 </label>
                             </div>
-                            <button class="bg-green-500 text-white font-semibold px-3 py-2 rounded-lg"
-                                type="submit">Tambah</button>
+                            <button class="bg-yellow-500 text-white font-semibold px-3 py-2 rounded-lg"
+                                type="submit">Ubah</button>
                         </form>
                     </div>
                 </div>

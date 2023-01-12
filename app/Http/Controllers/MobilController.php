@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Alternatif;
+use App\Models\Kriteria;
 use App\Models\Mobil;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
@@ -33,14 +35,14 @@ class MobilController extends Controller
             'gambar' => 'required|image'
         ]);
         $extension = $request->file('gambar')->getClientOriginalExtension();
-        $newName = $request->nama.'_'.now()->timestamp.'.'.$extension;
-        $request->file('gambar')->storeAs('mobil',$newName);
+        $newName = $request->nama . '_' . now()->timestamp . '.' . $extension;
+        $request->file('gambar')->storeAs('mobil', $newName);
 
         $data = $request->except('gambar');
         $data['gambar'] = $newName;
         $mobil = Mobil::create($data);
 
-        if($mobil) {
+        if ($mobil) {
             Session::flash('status', 'sukses');
             Session::flash('message', 'Berhasil menambahkan data mobil');
         } else {
@@ -52,9 +54,9 @@ class MobilController extends Controller
     public function edit($id)
     {
         $mobil = Mobil::find($id);
-        return view('pages.mobil_edit',compact('mobil'));
+        return view('pages.mobil_edit', compact('mobil'));
     }
-    public function update(Request $request,$id)
+    public function update(Request $request, $id)
     {
         $request->validate([
             'nama' => 'required',
@@ -71,14 +73,21 @@ class MobilController extends Controller
         $mobil = Mobil::findOrFail($id);
         $data = $request->all();
         if ($request->file('gambar')) {
-            Storage::delete('/mobil/'.$mobil->gambar);
+            Storage::delete('/mobil/' . $mobil->gambar);
             $extension = $request->file('gambar')->getClientOriginalExtension();
-            $newName = $request->nama.'_'.now()->timestamp.'.'.$extension;
-            $request->file('gambar')->storeAs('mobil',$newName);
+            $newName = $request->nama . '_' . now()->timestamp . '.' . $extension;
+            $request->file('gambar')->storeAs('mobil', $newName);
             $data = $request->except('gambar');
             $data['gambar'] = $newName;
         }
-        if($mobil->update($data)) {
+        if ($mobil->update($data)) {
+            $data_kriteria = Kriteria::with('sub_kriteria')->get()->toArray();
+            if ($alternatif = Alternatif::where('mobil_id', $id)->first()) {
+                $hasil_alternatif = app(\App\Http\Controllers\HomeController::class)->hitungAlternatif(Mobil::where('id', $id)->get(), $data_kriteria);
+                foreach ($hasil_alternatif as $al) {
+                    $alternatif->update($al);
+                }
+            }
             Session::flash('status', 'sukses');
             Session::flash('message', 'Berhasil memperbarui data mobil');
         } else {
