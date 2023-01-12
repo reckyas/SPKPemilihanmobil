@@ -1,5 +1,8 @@
 @extends('layout.main')
 @section('title', 'Hasil Pencarian')
+@push('head')
+    @vite('resources/js/app.js')
+@endpush
 @section('content')
     <div class="container mx-auto max-w-6xl p-5">
         <div class="sm:flex">
@@ -60,19 +63,12 @@
                     <form action="{{ route('proses-spk') }}" method="POST" id="form_pilihan_mobil">
                         @csrf
                         @forelse ($data_mobil as $mobil)
-                            <div class="border border-slate-200 rounded-lg overflow-hidden shadow-lg flex w-full mb-3">
-                                <div class="w-4/12">
+                            <div class="border border-slate-200 rounded-lg overflow-hidden shadow-lg lg:flex w-full mb-3">
+                                <div class="lg:w-4/12">
                                     <img src="{{ asset('storage/mobil/' . $mobil->gambar) }}" alt="{{ $mobil->nama }}"
                                         class="w-full object-cover h-full" />
                                 </div>
-                                <div class="w-8/12 py-2 px-4 relative">
-                                    <div class="absolute right-2 mt-2">
-
-                                        <label for="{{ 'mobil_' . $mobil->id }}"
-                                            class="select-none px-3 py-2 bg-red-400 hover:bg-red-500 cursor-pointer text-white rounded-lg">
-                                            <input type="checkbox" name="mobil[]" id="{{ 'mobil_' . $mobil->id }}"
-                                                value="{{ $mobil->id }}" /><span>Pilih</span></label>
-                                    </div>
+                                <div class="lg:w-8/12 py-2 px-4 relative">
                                     <h3 class="font-semibold text-xl text-red-800 uppercase">
                                         {{ $mobil->nama }}
                                     </h3>
@@ -110,6 +106,13 @@
                                             <div class="w-1/2">: {{ $mobil->ketersediaan_sparepart }}</div>
                                         </div>
                                     </div>
+                                    <div class="xl:absolute right-2 top-2 max-xl:my-3  xl:mt-2">
+
+                                        <label for="{{ 'mobil_' . $mobil->id }}"
+                                            class="select-none px-3 py-2 max-sm:block max-xl:font-semibold max-sm:text-center bg-red-400 hover:bg-red-500 cursor-pointer text-white rounded-lg">
+                                            <input type="checkbox" name="mobil[]" id="{{ 'mobil_' . $mobil->id }}"
+                                                value="{{ $mobil->id }}" /><span>Pilih</span></label>
+                                    </div>
                                 </div>
                             </div>
                         @empty
@@ -117,7 +120,9 @@
                                 kriteria yang anda pilih. silahkan mengatur ulang kriteria anda <a
                                     href="{{ route('home') }}" class="text-blue-500 underline">disini</a>.</div>
                         @endforelse
-                        <button type="submit" id="button_submit_badingkan" class="fixed px-4 py-3 bg-green-500 text-white bottom-5 right-6 text-xl rounded-lg shadow-xl uppercase tracking-widest"> Bandingkan </button>
+                        <button type="submit" id="button_submit_badingkan"
+                            class="fixed px-4 py-3 bg-green-500 text-white bottom-5 right-6 text-xl rounded-lg shadow-xl uppercase tracking-widest">
+                            Bandingkan </button>
                     </form>
                 </div>
             </div>
