@@ -20,6 +20,12 @@
                         bg-red-700 text-white
                     @endif hover:text-white hover:translate-x-1 duration-300 transition uppercase border-red-900">Kriteria</a>
             </li>
+            <li>
+                <a href="{{ route('pengguna.index') }}"
+                    class="block font-semibold px-3 py-2 border-l-4 hover:bg-red-400 @if ($active=='Pengguna')
+                        bg-red-700 text-white
+                    @endif hover:text-white hover:translate-x-1 duration-300 transition uppercase border-red-900">Pengguna</a>
+            </li>
         </ul>
     </div>
 </div>

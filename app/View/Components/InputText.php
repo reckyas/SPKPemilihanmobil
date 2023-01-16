@@ -13,12 +13,19 @@ class InputText extends Component
      */
     public $name;
     public $label;
-    public $placeholder,$required,$error,$value,$disable;
-    public function __construct($name,$label,$placeholder='',$required=true,$error=false,$value=false,$disable=false)
+    public $placeholder,$required,$error,$value,$disable,$type;
+    public function __construct($name,$label,$placeholder='',$required=true,$error=false,$value=false,$disable=false,$type='text')
     {
         $this->name = $name;
         $this->label = $label;
         $this->required = $required;
+        $data_type = [
+            'text' => 'text',
+            'email' => 'email',
+            'password' => 'password',
+            'number' => 'number'
+        ];
+        $this->type = $data_type[$type];
         if($placeholder=='') {
             $this->placeholder = 'Masukan '.$name;
         } else {

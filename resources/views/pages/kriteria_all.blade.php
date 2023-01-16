@@ -75,7 +75,6 @@
                                 </tr>
                             </tbody>
                         </table>
-                        {{-- {{ $mobil->links() }} --}}
                     </div>
                 </div>
             </div>

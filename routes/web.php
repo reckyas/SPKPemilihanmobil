@@ -5,6 +5,8 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\KriteriaController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\MobilController;
+use App\Http\Controllers\PenggunaController;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -17,7 +19,6 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
-
 Route::middleware('auth')->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'index']);
     Route::post('logout', [LoginController::class, 'logout']);
@@ -36,6 +37,13 @@ Route::middleware('auth')->group(function () {
         Route::get('/kriteria/{id}', 'editKriteria')->name('kriteria.edit');
         Route::put('/kriteria/{kriteria}', 'updateKriteria')->name('kriteria.update');
         Route::put('/sub-kriteria/{sub_kriteria}', 'updateSubKriteria')->name('sub-kriteria.update');
+    });
+    Route::controller(PenggunaController::class)->group(function() {
+        Route::get('/pengguna', 'index')->name('pengguna.index');
+        Route::get('/tambah-pengguna', 'add')->name('pengguna.add');
+        Route::post('/pengguna/add', 'store')->name('pengguna.store');
+        Route::get('/pengguna/{id}', 'edit')->name('pengguna.edit');
+        Route::put('/pengguna/{id}', 'update')->name('pengguna.update');
     });
 });
 Route::middleware('guest')->group(function () {
