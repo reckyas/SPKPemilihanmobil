@@ -29,10 +29,10 @@ class PenggunaController extends Controller
         $pengguna = User::create($request->all());
         if ($pengguna) {
             Session::flash('status', 'sukses');
-            Session::flash('message', 'Berhasil menambahkan data mobil');
+            Session::flash('message', 'Berhasil menambahkan data pengguna');
         } else {
             Session::flash('status', 'gagal');
-            Session::flash('message', 'Gagal menambahkan data mobil');
+            Session::flash('message', 'Gagal menambahkan data pengguna');
         }
         return redirect()->route('pengguna.index');
     }
@@ -57,10 +57,22 @@ class PenggunaController extends Controller
         }
         if ($pengguna->update($data)) {
             Session::flash('status', 'sukses');
-            Session::flash('message', 'Berhasil menambahkan data mobil');
+            Session::flash('message', 'Berhasil memperbarui data pengguna');
         } else {
             Session::flash('status', 'gagal');
-            Session::flash('message', 'Gagal menambahkan data mobil');
+            Session::flash('message', 'Gagal memperbarui data pengguna');
+        }
+        return redirect()->route('pengguna.index');
+    }
+    public function destroy($id)
+    {
+        $pengguna = User::findOrFail($id);
+        if ($pengguna->delete()) {
+            Session::flash('status', 'sukses');
+            Session::flash('message', 'Berhasil menghapus data pengguna');
+        } else {
+            Session::flash('status', 'gagal');
+            Session::flash('message', 'Gagal menghapus data pengguna');
         }
         return redirect()->route('pengguna.index');
     }

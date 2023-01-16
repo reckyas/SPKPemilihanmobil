@@ -44,6 +44,7 @@ Route::middleware('auth')->group(function () {
         Route::post('/pengguna/add', 'store')->name('pengguna.store');
         Route::get('/pengguna/{id}', 'edit')->name('pengguna.edit');
         Route::put('/pengguna/{id}', 'update')->name('pengguna.update');
+        Route::delete('/pengguna/{id}', 'destroy')->name('pengguna.delete');
     });
 });
 Route::middleware('guest')->group(function () {

@@ -44,7 +44,7 @@
                                         <td class="border border-slate-600 px-1 py-1">
                                             <a href="{{ route('pengguna.edit', $p->id) }}"
                                                 class="px-2 py-1 bg-yellow-500 text-white rounded font-semibold mb-1 inline-block">E</a>
-                                            <form action="{{ route('mobil.delete', $p->id) }}" method="post"
+                                            <form action="{{ route('pengguna.delete', $p->id) }}" method="post"
                                                 onsubmit="return confirm('Apakah anda yakin akan menghapus data ini?')">
                                                 @csrf
                                                 @method('DELETE')
