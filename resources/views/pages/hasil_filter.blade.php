@@ -79,7 +79,7 @@
                                         </div>
                                         <div class="flex justify-between">
                                             <div class="w-1/2">Harga</div>
-                                            <div class="w-1/2">: {{ $mobil->harga }}</div>
+                                            <div class="w-1/2">: @currency($mobil->harga)</div>
                                         </div>
                                         <div class="flex justify-between">
                                             <div class="w-1/2">Model</div>

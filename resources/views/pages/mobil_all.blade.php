@@ -50,7 +50,7 @@
                                                 alt="{{ $item->gambar }}"></td>
                                         <td class="border border-slate-600 px-1">{{ $item->nama }}</td>
                                         <td class="border border-slate-600 px-1">{{ $item->tahun_keluar }}</td>
-                                        <td class="border border-slate-600 px-1">{{ $item->harga }}</td>
+                                        <td class="border border-slate-600 px-1">@currency($item->harga)</td>
                                         <td class="border border-slate-600 px-1">{{ $item->model }}</td>
                                         <td class="border border-slate-600 px-1">{{ $item->transmisi }}</td>
                                         <td class="border border-slate-600 px-1">{{ $item->kapasitas_mesin }} cc</td>
