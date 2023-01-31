@@ -1,5 +1,36 @@
 @extends('layout.main')
 @section('title', 'Edit Data Mobil')
+@push('head')
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            function formatRupiah(angka, prefix) {
+                var number_string = angka.replace(/[^,\d]/g, '').toString(),
+                    split = number_string.split(','),
+                    sisa = split[0].length % 3,
+                    rupiah = split[0].substr(0, sisa),
+                    ribuan = split[0].substr(sisa).match(/\d{3}/gi);
+
+                // tambahkan titik jika yang di input sudah menjadi angka ribuan
+                if (ribuan) {
+                    separator = sisa ? '.' : '';
+                    rupiah += separator + ribuan.join('.');
+                }
+
+                rupiah = split[1] != undefined ? rupiah + ',' + split[1] : rupiah;
+                return prefix == undefined ? rupiah : (rupiah ? 'Rp. ' + rupiah : '');
+            }
+            var rupiah = document.getElementById('rupiah');
+            let harga = document.getElementById('harga');
+            rupiah.value = formatRupiah(rupiah.value, 'Rp. ');
+            rupiah.addEventListener('keyup', function(e) {
+                // tambahkan 'Rp.' pada saat form di ketik
+                // gunakan fungsi formatRupiah() untuk mengubah angka yang di ketik menjadi format angka
+                harga.value = rupiah.value.replace(/^\D+/g, '').replace(/\./g,'');
+                rupiah.value = formatRupiah(this.value, 'Rp. ');
+            });
+        })
+    </script>
+@endpush
 @section('content')
     <div class="container mx-auto w-full p-5 sm:p-10">
         <div class="flex sm:gap-2 flex-wrap sm:flex-nowrap">
@@ -29,8 +60,9 @@
                             @method('PUT')
                             <x-input-text name="nama" label="Nama Mobil" value="{{ $mobil->nama }}" />
                             <x-input-text name="tahun_keluar" label="Tahun Keluar" value="{{ $mobil->tahun_keluar }}" placeholder="Contoh : 2022" />
-                            <x-input-text name="harga" label="Harga" value="{{ $mobil->harga }}"
+                            <x-input-text name="rupiah" label="Harga" value="{{ $mobil->harga }}"
                                 placeholder="Masukan harga asli, contoh : 150000000" />
+                            <input type="hidden" value="{{ $mobil->harga }}" name="harga" id="harga">
                             <x-input-select name="model" label="Model" selected="{{ $mobil->model }}" :options="[
                                 [
                                     'label' => '-- Pilih model mobil --',
