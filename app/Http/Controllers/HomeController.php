@@ -150,13 +150,13 @@ class HomeController extends Controller
                         }
                     } else if (is_numeric(strpos($sk['nama'], '>'))) {
                         $rawFilter = explode('>', $sk['nama']);
-                        if ($mobil->kapasitas_mesin > $rawFilter[1]) {
+                        if ($mobil->kapasitas_mesin >= $rawFilter[1]) {
                             $data_alternatif[$mobil->id - 1]['kapasitas_mesin'] = $sk['bobot'];
                             break;
                         }
                     } else if (is_numeric(strpos($sk['nama'], '<'))) {
                         $rawFilter = explode('<', $sk['nama']);
-                        if ($mobil->kapasitas_mesin < $rawFilter[1]) {
+                        if ($mobil->kapasitas_mesin <= $rawFilter[1]) {
                             $data_alternatif[$mobil->id - 1]['kapasitas_mesin'] = $sk['bobot'];
                             break;
                         }
